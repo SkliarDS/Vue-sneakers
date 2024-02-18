@@ -11,6 +11,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.1",
+    "axios": "^1.6.7",
     "vanilla-lazyload": "^17.8.8",
     "vue": "^3.4.15"
   },

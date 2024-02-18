@@ -1,5 +1,9 @@
 <script setup>
-
+defineProps ({
+    totalPrice: Number,
+    countCart: Number
+})
+    const emit = defineEmits(['openDriver']) 
 </script>
 
 
@@ -15,11 +19,13 @@
         </a>
         <nav>
             <ul class="flex items-center gap-x-8">
-                <li class="flex items-center gap-x-1.5 cursor-pointer text-slate-500 hover:text-black">
+                <li @click="()=>emit('openDriver')" class="flex items-center gap-x-1.5 cursor-pointer text-slate-500 hover:text-black relative">
+                    <span class="flex items-center justify-center absolute w-[20px] h-[20px] bg-slate-300 rounded-full text-white -top-4">{{ countCart }}</span>
                     <img class='lazy' width='20' height='20' src='/cart.svg' alt='Иконка корзины' title='Иконка корзины'>
-                    <span><b>1205 руб.</b></span>
+                    <span><b>{{ totalPrice }} руб.</b></span>
                 </li>
                 <li class="flex items-center gap-x-1.5 cursor-pointer text-slate-500 hover:text-black">
+                    <span></span>
                     <img class=' lazy' width='20' height='20' src='/heart.svg' alt='Иконка сердца' title='Иконка сердца'>
                     <span>Закладки</span>
                 </li>

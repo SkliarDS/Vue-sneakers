@@ -1,30 +1,26 @@
 <script setup>
 import Card from './Card.vue';
 
-const onClickAdd = () => {
-    alert('Добаввить в корзину')
+const emit = defineEmits(['addToFavorite', 'clickToCart']);
 
-}
-function onClickFavorite() {
-    alert('Добавить в избранное');  
-}
 defineProps({
     items: Array
 })
 </script>
 
 <template>
-    <div class="grid auto-fill gap-8">	
+    <div class="grid auto-fill gap-8" v-auto-animate>	
         <Card 
         v-for="item in items" 
         :key="item.id"
+        :id="item.id"
         :imageUrl="item.imageUrl"
         :title="item.title" 
         :price="item.price"
-        :isAdded="false"
-        :isFavorite="false"
-        :onClickAdd="onClickAdd"
-        :onClickFavorite="onClickFavorite"
+        :isAdded="item.isAdded"
+        :isFavorite="item.isFavorite"
+        :onClickAdd="()=> emit('clickToCart', item)"
+        :onClickFavorite="()=> emit('addToFavorite', item)"
         />
     </div>
 </template>
