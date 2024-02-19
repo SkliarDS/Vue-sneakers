@@ -53,7 +53,7 @@
 
 <template>	
 	<Draver v-if="draverOpen" @close-driver="closeDriver"/>
-	<div class="mx-auto w-4/5 bg-white rounded-3xl shadow-xl mt-14">		
+	<div class="mx-auto w-4/5 bg-white rounded-3xl shadow-xl my-14">		
 		<Header :count-cart="countCart" :total-price="totalPrice"  @open-driver="openDriver"/>
 		<div class="p-10">
 			<router-view></router-view>
