@@ -38,13 +38,13 @@
                     v-if="!totalPrice && !orderId"                  
                     title="Корзина пуста" 
                     desc="Выберирте товар на странице!" 
-                    url-image="./../public/package-icon.png"
+                    url-image="/public/package-icon.png"
                 />
                 <InfoBlock           
                     v-if="orderId"         
                     title="Заказ оформлен" 
                     :desc="`Ваш заказ №${orderId} передан в обработку`"
-                    url-image="./../public/order-success-icon.png"
+                    url-image="/public/order-success-icon.png"
                 />
             </div>
             <DraverFooter
