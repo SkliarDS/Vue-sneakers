@@ -1,11 +1,30 @@
 <script setup>
-    import { inject } from 'vue';
+    import { inject, ref } from 'vue';
+	import axios from 'axios';
     import DraverHeader  from './DriverHeader.vue';
     import CartItemList from './CartItemList.vue'
     import DraverFooter from './DraverFooter.vue'
     import InfoBlock from './InfoBlock.vue';
-    const {totalPrice, vatPrice, creatOrder} = inject('cartActions')
+
+    const {totalPrice, vatPrice, cart} = inject('cartActions')
+
+    const orderId = ref(null)
     const emit = defineEmits(['closeDriver'])
+
+    // const isCreatingOrder = ref(false)
+    const creatOrder = async () => {
+		try {
+			const {data} = await axios.post("https://d4357a15413dbff9.mokky.dev/cart", {
+				items: cart.value,
+				totalPrice: totalPrice.value
+			})			
+			cart.value =[]	
+            orderId.value = data.id		
+			return data
+		} catch (err) {
+			console.log('err:',err);
+		}
+	}
 </script>
 
 <template>
@@ -14,12 +33,20 @@
         <div class="p-10 flex flex-col h-full">
             <DraverHeader/>
             <CartItemList  />
-            <InfoBlock 
-                v-if="!totalPrice"
-                title="Корзина пуста" 
-                desc="Выберирте товар на странице!" 
-                url-image="./../public/package-icon.png"
-            />
+            <div  v-if="!totalPrice || itemId" class="flex items-center  justify-center w-full h-full" v-auto-animate>
+                <InfoBlock  
+                    v-if="!totalPrice && !orderId"                  
+                    title="Корзина пуста" 
+                    desc="Выберирте товар на странице!" 
+                    url-image="./../public/package-icon.png"
+                />
+                <InfoBlock           
+                    v-if="orderId"         
+                    title="Заказ оформлен" 
+                    :desc="`Ваш заказ №${orderId} передан в обработку`"
+                    url-image="./../public/order-success-icon.png"
+                />
+            </div>
             <DraverFooter
                 v-if="totalPrice"
                 :total-price="totalPrice"

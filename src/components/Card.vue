@@ -15,6 +15,7 @@
 <template>
     <div class="flex flex-col ht-auto relative border rounded-[40px] pt-5 px-7 pb-8 cursor-pointer hover:shadow-2xl duration-500 ">
         <img class='lazy absolute' 
+            v-if="onClickFavorite"
             width='32' height='32' 
             @click="onClickFavorite" 
             :src="!isFavorite ? '/like-1.svg' : '/like-2.svg'" 
